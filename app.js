@@ -33,15 +33,21 @@ var coverBackTabs = document.querySelector('.js-cover-back-tabs');
     Open the tab and show all tabs items
  */
 tabItemMainControl.addEventListener('click', function(){
-  tabs.classList.remove('js-tabs-init');
-  
-  for(var i = 0; i < tabItems.length; i++){
-    tabItems[i].style.animationName = 'show-tab-items';
-    tabItems[i].style.animationDuration = '.8s';
-    tabItems[i].style.animationTimingFunction = 'cubic-bezier(0.68, -0.55, 0.27, 1.55)';
-    tabItems[i].style.animationFillMode = 'forwards';
+  if(tabs.classList.contains('js-tabs-init')){
+    tabs.classList.remove('js-tabs-init');
+    tabItemMainControl.style.transform = 'rotate(45deg)';
+    for(var i = 0; i < tabItems.length; i++){
+      tabItems[i].classList.add('js-tab-item-show');
+    }
+  }else{
+    for(var i = 0; i < tabItems.length; i++){
+      tabItems[i].classList.remove('js-tab-item-show');
+    }
+    setTimeout(function(){
+      tabItemMainControl.style.transform = 'rotate(0deg)';
+      tabs.classList.add('js-tabs-init');
+    }, 2000);
   }
-
 });
 
 /*
